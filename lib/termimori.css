@@ -1,0 +1,16 @@
+.termimori {
+  background: #000;
+  color: #fff; }
+  .termimori * {
+    font-family: 'Andale Mono', AndaleMono, monospace;
+    word-wrap: break-word;
+    font-size: 14px; }
+  .termimori .line {
+    line-height: 21px; }
+    .termimori .line * {
+      height: 100%;
+      vertical-align: bottom; }
+    .termimori .line .prompt {
+      white-space: pre; }
+    .termimori .line .command {
+      outline: none; }

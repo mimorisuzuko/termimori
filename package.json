@@ -1,0 +1,29 @@
+{
+	"name": "@mimorisuzuko/termimori",
+	"version": "0.0.1",
+	"description": "Termimori allows to create a element like Terminal",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [
+		"mimori"
+	],
+	"author": "Hiroki Usuba <hrky0206@gmail.com> (http://mimorisuzuko.github.io)",
+	"license": "ISC",
+	"files": [
+		"index.js",
+		"package.json",
+		"lib",
+		"README.md"
+	],
+	"devDependencies": {
+		"gulp": "^3.9.1",
+		"gulp-browserify": "^0.5.1",
+		"gulp-jade": "^1.1.0",
+		"gulp-sass": "^2.2.0"
+	},
+	"dependencies": {
+		"minimist": "^1.2.0"
+	}
+}
