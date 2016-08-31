@@ -1,0 +1,16 @@
+.termimori {
+  background-color: #1e1e1e;
+  font-size: 0.8rem;
+  color: #d4d4d4;
+  font-family: Menlo, Monaco, "Courier New", monospace;
+  padding: 0.4rem;
+  overflow-y: scroll; }
+  .termimori .termimori-line {
+    word-wrap: break-word;
+    word-break: break-all;
+    outline: none; }
+    .termimori .termimori-line .termimori-line-head {
+      white-space: pre; }
+    .termimori .termimori-line .termimori-line-tail {
+      outline: none;
+      line-height: 0.8rem; }

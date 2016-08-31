@@ -1,47 +1,46 @@
 # Termimori
 
-Termimori allows to create a element like Terminal
+It allows user to create element like Terminal.
 
-（BrowserでTerminalを動かしたいとかではなくて，それっぽいUIを表示する君）
+## Example & Demo
 
-## Usage
+Play [here](http://mimorisuzuko.github.io/termimori/).
 
-```javascript
-const termimori = new Termimori(parent, prompt);
-```
-
-* `parent`: 親要素となる`Element`を指定する
-* `prompt`: Objectの配列で指定する
-  * `name`: `this.element.${name}`でアクセスできる（識別子的な）
-  * `style`: 表示する際のStyleを指定する
-  * `text`: 表示したい文字
-
+from `docs/index.js`
 
 ```javascript
-termimori.on(command, f);
-```
+const Termimori = require('../');
+const _ = require('lodash');
 
-* `command`: コマンドの名前
-* `f`: 上記コマンドが入力された際に実行する関数
-  * `args`: `minimist`によってparseされた引数を得れる
-  * `return value`: 上記コマンドを実行した後に表示する文字列
-
-### [Example](http://mimorisuzuko.github.io/termimori/demo/)
-
-```javascript
-const Termimori = require('../index.js');
-const termimori = new Termimori(document.querySelector('div'), [
+const termimori = new Termimori(document.querySelector('.sample'), [
 	{
-		name: 'face',
-		style: { color: '#0f0' },
-		text: '(*\'-\') < ',
+		color: 'rgb(0, 255, 0)',
+		innerText: '(*\'-\') < '
 	}
 ]);
-termimori.focus();
-termimori.on('zoi', (args) => '今日も1日がんばるぞい！');
-termimori.on('tweet', (args) => {
-	window.open('http://twitter.com/?status=' + args._[1]);
-	return 'a';
+termimori.on('zoi', () => '今日も1日がんばるぞい！').on('tweet', (args) => {
+	const q = _.slice(args._, 1);
+	window.open(`http://twitter.com/?status=${q}`);
+	return `${q} とツイートしました`;
 });
 ```
 
+## API
+
+### `Termimori(Element, { color: String, innerText: innerText }[])`
+
+#### `Element`
+
+Termimori creates element under `Element`.
+
+#### `{ color: String, innerText: innerText }[]`
+
+The array is like a prompt.
+
+* `color`: Set color of text
+* `innerText`: Set text for showing in Termimori
+
+### `on(command: String, f: Function)`
+
+* `command`: Set command name
+* `f`: When typed command, the function that has a argument parsed by minimist is executed.
