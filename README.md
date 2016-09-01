@@ -2,11 +2,14 @@
 
 It allows user to create element like Terminal.
 
+![demo](demo.gif)
+
 ## Example & Demo
 
-Play [here](http://mimorisuzuko.github.io/termimori/).
+[Example](http://mimorisuzuko.github.io/termimori/) from `docs/index.js`
 
-from `docs/index.js`
+* `zoi`: Show "今日も1日がんばるぞい！" in Termimori
+* `tweet`: Open tweet window
 
 ```javascript
 const Termimori = require('../');
