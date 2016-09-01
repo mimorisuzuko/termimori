@@ -1,6 +1,6 @@
 # Termimori
 
-It allows user to create element like Terminal.
+This allows user to create element like Terminal.
 
 ![demo](demo.gif)
 
