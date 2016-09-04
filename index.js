@@ -6,9 +6,9 @@ const minimist = require('minimist');
 class Termimori {
 	/**
 	 * @param {Element} parentElement
-	 * @param {{color: String, innerText: String}[]} prompt
+	 * @param { { color: String, innerText: String, id: String, after: String }[]} promptChildren
 	 */
-	constructor(parentElement, prompt) {
+	constructor(parentElement, promptChildren) {
 		const element = document.createElement('div');
 		element.classList.add('termimori');
 		element.addEventListener('click', this.click.bind(this));
@@ -17,12 +17,6 @@ class Termimori {
 		line.classList.add('termimori-line');
 		const head = document.createElement('span');
 		head.classList.add('termimori-line-head');
-		_.forEach(prompt, (p) => {
-			const span = document.createElement('span');
-			span.style.color = p.color;
-			span.innerText = p.innerText;
-			head.appendChild(span);
-		});
 		const tail = document.createElement('span');
 		tail.classList.add('termimori-line-tail');
 		tail.contentEditable = true;
@@ -31,10 +25,13 @@ class Termimori {
 		element.appendChild(line);
 
 		this.element = element;
+		this.head = head;
 		this.tail = tail;
 		this.commands = {};
+		this.promptChildren = promptChildren;
 
 		this.height = `${0.8 * 10}rem`;
+		this.rehead();
 	}
 
 	click() {
@@ -47,7 +44,6 @@ class Termimori {
 				event.preventDefault();
 				const {parentElement} = this.tail;
 				const {args} = this;
-				console.log(args);
 				const f = this.commands[args._[0]];
 				const result = f ? f(this.args) : `termimori: ${args._[0]}: command not found`;
 				this.addline(result);
@@ -84,7 +80,21 @@ class Termimori {
 				}
 			}
 		}[`kc${event.keyCode}`];
-		if (f) { f(); }
+		if (!f) { return; }
+		f();
+		this.rehead();
+	}
+
+	rehead() {
+		this.head.innerText = '';
+		_.forEach(this.promptChildren, (child) => {
+			const span = document.createElement('span');
+			span.style.color = child.color;
+			child.innerText = child.after ? child.after : child.innerText;
+			span.innerText = child.innerText;
+			this.head.appendChild(span);
+			child.after = null;
+		});
 	}
 
 	/**
@@ -115,6 +125,15 @@ class Termimori {
 		const cloneNode = parentElement.cloneNode(true);
 		cloneNode.children[1].contentEditable = false;
 		parentElement.parentElement.insertBefore(cloneNode, parentElement);
+	}
+
+	/**
+	 * 
+	 * @param {String} id
+	 * @param {String} after
+	 */
+	prompt(id, after) {
+		_.find(this.promptChildren, { id }).after = after;
 	}
 
 	get args() {
